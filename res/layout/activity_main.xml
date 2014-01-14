@@ -14,7 +14,7 @@
         android:layout_height="346dp"
         android:layout_x="6dp"
         android:layout_y="4dp"
-        android:src="@drawable/p01" />
+        android:src="@drawable/p04" />
 
     <Button
         android:id="@+id/button2"

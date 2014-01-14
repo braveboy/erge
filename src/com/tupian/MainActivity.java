@@ -24,9 +24,9 @@ public class MainActivity extends Activity {
 	
 	int [] imid = {
 			
-			R.drawable.p01,
-			R.drawable.p02,
-			R.drawable.p03,
+			R.drawable.p04,
+			R.drawable.p05,
+			R.drawable.p06,
 	};
 	int [] sounid = {
 			R.raw.s01,
