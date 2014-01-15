@@ -79,8 +79,12 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		initSounds(sounid[0]);//初始化声音
-		setContentView(R.layout.activity_main);
+		int i = Integer.valueOf(getIntent().getStringExtra("list")).intValue();
+		initSounds(sounid[i]);
+		currimid = i;
+/*		mMediaPlayer.start();*/
+/*		initSounds(sounid[0]);//初始化声音
+*/  		setContentView(R.layout.activity_main);
 		
 		iv = (ImageView)findViewById(R.id.imageView1);
 		btnPrev = (Button)findViewById(R.id.button1);
@@ -92,6 +96,9 @@ public class MainActivity extends Activity {
 		btnNext.setOnClickListener(mylistener);
 		btnStart.setOnClickListener(mysound);
 		btnEnd.setOnClickListener(mysound);
+		
+		iv.setImageResource(imid[i]);
+		mMediaPlayer.start();
 	}
 
 	private void initSounds(int a) {
