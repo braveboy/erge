@@ -17,41 +17,31 @@
         android:layout_marginTop="18dp"
         android:src="@drawable/p04" />
     
-    <Button
-        android:id="@+id/button4"
+    <ImageButton
+        android:id="@+id/prev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button3"
-        android:layout_alignBottom="@+id/button3"
-        android:layout_toRightOf="@+id/button3"
-        android:text="@string/end" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/prev_1"
+        android:src="@drawable/prev" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="46dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button4"
-        android:layout_alignBottom="@+id/button4"
-        android:layout_toRightOf="@+id/button4"
-        android:text="@string/next" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="42dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginLeft="38dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/prie" />
-
-    <Button
-        android:id="@+id/button3"
+    
+    <ImageButton
+        android:id="@+id/play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_toRightOf="@+id/button1"
-        android:text="@string/start" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/play_1"
+        android:src="@drawable/play" />
+    <ImageButton
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/imageView1"
+        android:background="@drawable/next_1"
+        android:src="@drawable/next" />
 
 </RelativeLayout>

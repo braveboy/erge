@@ -22,25 +22,34 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
-        public static final int p01=0x7f020001;
-        public static final int p02=0x7f020002;
-        public static final int p03=0x7f020003;
-        public static final int p04=0x7f020004;
-        public static final int p05=0x7f020005;
-        public static final int p06=0x7f020006;
+        public static final int next=0x7f020001;
+        public static final int next_1=0x7f020002;
+        public static final int next_2=0x7f020003;
+        public static final int p01=0x7f020004;
+        public static final int p02=0x7f020005;
+        public static final int p03=0x7f020006;
+        public static final int p04=0x7f020007;
+        public static final int p05=0x7f020008;
+        public static final int p06=0x7f020009;
+        public static final int pause_1=0x7f02000a;
+        public static final int pause_2=0x7f02000b;
+        public static final int play=0x7f02000c;
+        public static final int play_1=0x7f02000d;
+        public static final int play_2=0x7f02000e;
+        public static final int prev=0x7f02000f;
+        public static final int prev_1=0x7f020010;
+        public static final int prev_2=0x7f020011;
     }
     public static final class id {
-        public static final int action_settings=0x7f090005;
-        public static final int button1=0x7f090004;
-        public static final int button2=0x7f090003;
-        public static final int button3=0x7f090002;
-        public static final int button4=0x7f090001;
+        public static final int action_settings=0x7f090004;
         public static final int imageView1=0x7f090000;
+        public static final int next=0x7f090003;
+        public static final int play=0x7f090002;
+        public static final int prev=0x7f090001;
     }
     public static final class layout {
-        public static final int activity_list=0x7f030000;
-        public static final int activity_main=0x7f030001;
-        public static final int activity_song_list=0x7f030002;
+        public static final int activity_main=0x7f030000;
+        public static final int activity_song_list=0x7f030001;
     }
     public static final class menu {
         public static final int list=0x7f080000;

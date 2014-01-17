@@ -1,26 +1,20 @@
 package com.tupian;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
+import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 public class MainActivity extends Activity {
 
 	ImageView iv;
-	Button btnPrev;
-	Button btnNext;
-	Button btnStart;
-	Button btnEnd;
+	ImageButton btnPlay;
+	ImageButton btnPrev;
+	ImageButton btnNext;
 	MediaPlayer mMediaPlayer;
-//	private List<String> mMusicList = new ArrayList<String>();
 	
 	int [] imid = {
 			
@@ -34,83 +28,78 @@ public class MainActivity extends Activity {
 			R.raw.s05,
 	};
 	int currimid = 0;
-	
-	private View.OnClickListener mylistener = new View.OnClickListener() {
 		
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			if ( v== btnPrev ){
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		int i = getIntent().getIntExtra("int", 0);
+		initSounds(sounid[i]);
+		currimid = i;
+
+		setContentView(R.layout.activity_main);
+		
+		iv = (ImageView)findViewById(R.id.imageView1);
+		btnPlay = (ImageButton)findViewById(R.id.play);
+		btnPrev = (ImageButton)findViewById(R.id.prev);
+		btnNext = (ImageButton)findViewById(R.id.next);
+		
+		iv.setImageResource(imid[i]);
+		mMediaPlayer.start();
+		
+		
+		btnPlay.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+			
+				if(btnPlay.isPressed()){
+					
+					if(!mMediaPlayer.isPlaying()) {
+						btnPlay.setImageResource(R.drawable.play_2);
+					} else if(mMediaPlayer.isPlaying()){
+						btnPlay.setImageResource(R.drawable.pause_2);
+					}
+				}
+				
+				if(!mMediaPlayer.isPlaying()) {
+					mMediaPlayer.start();
+					btnPlay.setImageResource(R.drawable.pause_1);
+				
+				
+				} else if(mMediaPlayer.isPlaying()){
+					mMediaPlayer.pause();//‘›Õ£…˘“Ù
+					btnPlay.setImageResource(R.drawable.play_1);
+				}
+			}
+			
+		});
+		
+        btnPrev.setOnClickListener(new OnClickListener() {
+        	
+        	public void onClick(View v) {
 				currimid = (currimid - 1 + imid.length)%imid.length;
 				iv.setImageResource(imid[currimid]);
 				mMediaPlayer.release();
 				initSounds(sounid[currimid]);
 				mMediaPlayer.start();
-				
-			}else if(v == btnNext){
+        	}
+        });
+        
+        btnNext.setOnClickListener(new OnClickListener() {
+        	
+        	public void onClick(View v) {
 				currimid = (currimid + 1)%imid.length;
 				iv.setImageResource(imid[currimid]);
 				mMediaPlayer.release();
 				initSounds(sounid[currimid]);
 				mMediaPlayer.start();
-			}
-		}
-
-	};
-
-	private View.OnClickListener mysound = new View.OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			if(v == btnStart){//µ„ª˜¡À π”√MediaPlayer≤•∑≈…˘“Ù∞¥≈•
-				if(!mMediaPlayer.isPlaying()){
-					mMediaPlayer.start();
-				}
-			}
-			else if(v == btnEnd){//µ„ª˜¡À‘›Õ£MediaPlayer…˘“Ù∞¥≈•
-				if(mMediaPlayer.isPlaying()){
-					mMediaPlayer.pause();//‘›Õ£…˘“Ù
-				}
-			}
-		}
-	};
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		int i = Integer.valueOf(getIntent().getStringExtra("list")).intValue();
-		initSounds(sounid[i]);
-		currimid = i;
-/*		mMediaPlayer.start();*/
-/*		initSounds(sounid[0]);//≥ı ºªØ…˘“Ù
-*/  		setContentView(R.layout.activity_main);
-		
-		iv = (ImageView)findViewById(R.id.imageView1);
-		btnPrev = (Button)findViewById(R.id.button1);
-		btnNext = (Button)findViewById(R.id.button2);
-		btnStart = (Button)findViewById(R.id.button3);
-		btnEnd = (Button)findViewById(R.id.button4);
-		
-		btnPrev.setOnClickListener(mylistener);
-		btnNext.setOnClickListener(mylistener);
-		btnStart.setOnClickListener(mysound);
-		btnEnd.setOnClickListener(mysound);
-		
-		iv.setImageResource(imid[i]);
-		mMediaPlayer.start();
+        	}
+        });
 	}
 
 	private void initSounds(int a) {
 		// TODO Auto-generated method stub
 		mMediaPlayer = MediaPlayer.create(this, a);//≥ı ºªØMediaPlayer
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
 	}
 
 	@Override
@@ -127,6 +116,4 @@ public class MainActivity extends Activity {
 		mMediaPlayer.start();
 	}
 
-	
-	
 }

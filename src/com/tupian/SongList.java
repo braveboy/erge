@@ -10,9 +10,9 @@ import android.widget.ListView;
 
 public class SongList extends ListActivity {
 	String[] list = {
-			"0",
-			"1",
-			"2",
+			"Ð¡ÐÇÐÇ",
+			"ÅÅÅÅ×ø³Ô¹û¹û",
+			"»úÆ÷Ã¨",
 	};
 	
 	@Override
@@ -26,6 +26,7 @@ public class SongList extends ListActivity {
 	public void onListItemClick(ListView parent, View v, int position, long id) {
 		Intent i = new Intent("com.tupian.PlayScreen");
 		i.putExtra("list", list[position]);
+		i.putExtra("int", position);
 		startActivity(i);
 	}
 	
