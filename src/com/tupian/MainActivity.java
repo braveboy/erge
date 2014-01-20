@@ -3,32 +3,47 @@ package com.tupian;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 
 public class MainActivity extends Activity {
 
-	ImageView iv;
-	ImageButton btnPlay;
-	ImageButton btnPrev;
-	ImageButton btnNext;
-	MediaPlayer mMediaPlayer;
+	private ImageView iv;
+	private ImageButton btnPlay;
+	private ImageButton btnPrev;
+	private ImageButton btnNext;
+	private SeekBar seekBar;
+	private MediaPlayer mMediaPlayer;
 	
-	int [] imid = {
-			
+	int [] imid = {		
 			R.drawable.p04,
 			R.drawable.p05,
 			R.drawable.p06,
 	};
+	
 	int [] sounid = {
 			R.raw.s01,
 			R.raw.s04,
 			R.raw.s05,
 	};
+	
 	int currimid = 0;
 		
+    Handler handler = new Handler();
+    Runnable updateThread = new Runnable(){
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			seekBar.setProgress(mMediaPlayer.getCurrentPosition());  
+			handler.postDelayed(updateThread, 100);  
+		}
+    	
+    };
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,10 +58,41 @@ public class MainActivity extends Activity {
 		btnPlay = (ImageButton)findViewById(R.id.play);
 		btnPrev = (ImageButton)findViewById(R.id.prev);
 		btnNext = (ImageButton)findViewById(R.id.next);
-		
+		seekBar = (SeekBar)findViewById(R.id.seekBar);  
+		seekBar.setMax(mMediaPlayer.getDuration());  
 		iv.setImageResource(imid[i]);
-		mMediaPlayer.start();
+		btnPlay.setImageResource(R.drawable.pause_1);
+		seekBar.setOnSeekBarChangeListener(
+				new SeekBar.OnSeekBarChangeListener() {
+					
+					@Override
+					public void onStopTrackingTouch(SeekBar seekBar) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void onStartTrackingTouch(SeekBar seekBar) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void onProgressChanged(SeekBar seekBar, int progress,
+							boolean fromUser) {
+						// TODO Auto-generated method stub
+						if (fromUser == true){
+							mMediaPlayer.seekTo(progress);
+						}
+								
+					}
+				}
+				
+				);
 		
+		
+		mMediaPlayer.start();
+		handler.post(updateThread);
 		
 		btnPlay.setOnClickListener(new OnClickListener() {
 			
@@ -63,11 +109,13 @@ public class MainActivity extends Activity {
 				
 				if(!mMediaPlayer.isPlaying()) {
 					mMediaPlayer.start();
+					btnPlay.setImageResource(R.drawable.play_2);
 					btnPlay.setImageResource(R.drawable.pause_1);
 				
 				
 				} else if(mMediaPlayer.isPlaying()){
 					mMediaPlayer.pause();//‘›Õ£…˘“Ù
+					btnPlay.setImageResource(R.drawable.pause_2);
 					btnPlay.setImageResource(R.drawable.play_1);
 				}
 			}
@@ -81,6 +129,8 @@ public class MainActivity extends Activity {
 				iv.setImageResource(imid[currimid]);
 				mMediaPlayer.release();
 				initSounds(sounid[currimid]);
+				seekBar.setMax(mMediaPlayer.getDuration()); 
+				btnPlay.setImageResource(R.drawable.pause_1);
 				mMediaPlayer.start();
         	}
         });
@@ -92,6 +142,8 @@ public class MainActivity extends Activity {
 				iv.setImageResource(imid[currimid]);
 				mMediaPlayer.release();
 				initSounds(sounid[currimid]);
+				seekBar.setMax(mMediaPlayer.getDuration()); 
+				btnPlay.setImageResource(R.drawable.pause_1);
 				mMediaPlayer.start();
         	}
         });
@@ -106,7 +158,8 @@ public class MainActivity extends Activity {
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		mMediaPlayer.pause();	
+		mMediaPlayer.pause();
+		handler.removeCallbacks(updateThread);
 	}
 
 	@Override
@@ -114,6 +167,7 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onResume();
 		mMediaPlayer.start();
+		handler.post(updateThread);
 	}
 
 }

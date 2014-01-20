@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Tupian</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="prie">|&lt;</string>
-    <string name="next">>|</string>
-    <string name="start">start</string>
-    <string name="end">end</string>
-    <string name="title_activity_list">ListActivity</string>
-    <string name="title_activity_song_list">SongList</string>
+    <string name="app_name">儿童歌曲</string>
+    <string name="action_settings">关于</string>
+    <string name="title_activity_list">曲目列表</string>
+    <string name="title_activity_song_list">儿童歌曲</string>
 
 </resources>
