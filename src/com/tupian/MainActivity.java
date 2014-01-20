@@ -147,22 +147,6 @@ public class MainActivity extends Activity {
 				mMediaPlayer.start();
         	}
         });
-        
-/*        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-        	
-			@Override
-			public void onCompletion(MediaPlayer arg0) {
-				// TODO Auto-generated method stub
-				currimid = (currimid + 1)%imid.length;
-				iv.setImageResource(imid[currimid]);
-				mMediaPlayer.release();
-				initSounds(sounid[currimid]);
-				seekBar.setMax(mMediaPlayer.getDuration()); 
-				btnPlay.setImageResource(R.drawable.pause_1);
-				mMediaPlayer.start();
-			}
-        });*/
- 
 	}
 
 	private void initSounds(int a) {
