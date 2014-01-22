@@ -1,11 +1,18 @@
 package com.tupian;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -18,6 +25,8 @@ public class MainActivity extends Activity {
 	private ImageButton btnNext;
 	private SeekBar seekBar;
 	private MediaPlayer mMediaPlayer;
+	private AudioManager audioManager;
+	private boolean SoundEnabled;
 	
 	int [] imid = {		
 			R.drawable.p04,
@@ -32,7 +41,7 @@ public class MainActivity extends Activity {
 	};
 	
 	int currimid = 0;
-		
+	
     Handler handler = new Handler();
     Runnable updateThread = new Runnable(){
 
@@ -44,6 +53,7 @@ public class MainActivity extends Activity {
 		}
     	
     };
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,9 +61,9 @@ public class MainActivity extends Activity {
 		int i = getIntent().getIntExtra("int", 0);
 		initSounds(sounid[i]);
 		currimid = i;
+		
 
 		setContentView(R.layout.activity_main);
-		
 		iv = (ImageView)findViewById(R.id.imageView1);
 		btnPlay = (ImageButton)findViewById(R.id.play);
 		btnPrev = (ImageButton)findViewById(R.id.prev);
@@ -152,7 +162,6 @@ public class MainActivity extends Activity {
 	private void initSounds(int a) {
 		// TODO Auto-generated method stub
 		mMediaPlayer = MediaPlayer.create(this, a);//≥ı ºªØMediaPlayer
-		
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
         	
 			@Override
@@ -175,6 +184,8 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onPause();
 		mMediaPlayer.pause();
+		audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+		audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
 		handler.removeCallbacks(updateThread);
 	}
 
@@ -182,8 +193,44 @@ public class MainActivity extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		invalidateOptionsMenu();
+		SoundEnabled = false;
 		mMediaPlayer.start();
 		handler.post(updateThread);
 	}
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.play__actions, menu);
+	    return super.onCreateOptionsMenu(menu);
+	}
 
+    
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		/*MenuItem menuItem = menu.findItem(R.id.action_mute);
+		menuItem.setIcon(R.drawable.ic_action_volume_on);	*/
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	        case R.id.action_mute:
+	        	audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+				if (!SoundEnabled) {
+                    audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true);
+                    item.setIcon(R.drawable.ic_action_volume_muted);
+                } else {
+                    audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+                    item.setIcon(R.drawable.ic_action_volume_on);
+                }
+                SoundEnabled = !SoundEnabled;
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 }

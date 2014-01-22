@@ -5,5 +5,7 @@
     <string name="action_settings">关于</string>
     <string name="title_activity_list">曲目列表</string>
     <string name="title_activity_song_list">儿童歌曲</string>
+    <string name="action_mute">静音</string>
+    <string name="action_repeat">循环</string>
 
 </resources>

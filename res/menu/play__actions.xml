@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item android:id="@+id/action_repeat"
+          android:icon="@drawable/ic_action_repeat"
+          android:title="@string/action_repeat"
+          android:showAsAction="ifRoom" />
+    
+    <item android:id="@+id/action_mute"
+          android:icon="@drawable/ic_action_volume_on"
+          android:title="@string/action_mute"
+          android:showAsAction="ifRoom" />
+    
+</menu>
