@@ -23,6 +23,7 @@ public class SongList extends ListActivity {
 		setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,list));
 	}
 
+	@Override
 	public void onListItemClick(ListView parent, View v, int position, long id) {
 		Intent i = new Intent("com.tupian.PlayScreen");
 		i.putExtra("list", list[position]);

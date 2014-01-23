@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     
     <item android:id="@+id/action_repeat"
-          android:icon="@drawable/repeat_all"
+          android:icon="@drawable/repeat_no"
           android:title="@string/action_repeat"
           android:showAsAction="ifRoom" />
     

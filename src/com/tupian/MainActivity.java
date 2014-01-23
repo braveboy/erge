@@ -1,18 +1,15 @@
 package com.tupian;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -41,6 +38,7 @@ public class MainActivity extends Activity {
 	};
 	
 	int currimid = 0;
+	int repeat = 1;
 	
     Handler handler = new Handler();
     Runnable updateThread = new Runnable(){
@@ -106,6 +104,7 @@ public class MainActivity extends Activity {
 		
 		btnPlay.setOnClickListener(new OnClickListener() {
 			
+			@Override
 			public void onClick(View v) {
 			
 				if(btnPlay.isPressed()){
@@ -134,7 +133,8 @@ public class MainActivity extends Activity {
 		
         btnPrev.setOnClickListener(new OnClickListener() {
         	
-        	public void onClick(View v) {
+        	@Override
+			public void onClick(View v) {
 				currimid = (currimid - 1 + imid.length)%imid.length;
 				iv.setImageResource(imid[currimid]);
 				mMediaPlayer.release();
@@ -147,7 +147,8 @@ public class MainActivity extends Activity {
         
         btnNext.setOnClickListener(new OnClickListener() {
         	
-        	public void onClick(View v) {
+        	@Override
+			public void onClick(View v) {
 				currimid = (currimid + 1)%imid.length;
 				iv.setImageResource(imid[currimid]);
 				mMediaPlayer.release();
@@ -167,13 +168,25 @@ public class MainActivity extends Activity {
 			@Override
 			public void onCompletion(MediaPlayer arg0) {
 				// TODO Auto-generated method stub
-				currimid = (currimid + 1)%imid.length;
-				iv.setImageResource(imid[currimid]);
-				mMediaPlayer.release();
-				initSounds(sounid[currimid]);
-				seekBar.setMax(mMediaPlayer.getDuration()); 
-				btnPlay.setImageResource(R.drawable.pause_1);
-				mMediaPlayer.start();
+				//Repeat all
+				if(repeat==1) {
+					currimid = (currimid + 1)%imid.length;
+					iv.setImageResource(imid[currimid]);
+					mMediaPlayer.release();
+					initSounds(sounid[currimid]);
+					seekBar.setMax(mMediaPlayer.getDuration()); 
+					btnPlay.setImageResource(R.drawable.pause_1);
+					mMediaPlayer.start();
+				} 
+				//Repeat one
+				else if(repeat==2) {
+					mMediaPlayer.start();
+				}
+				//Repeat no
+				else if(repeat==0) {
+					//do nothing
+				}
+
 			}
         });
  
@@ -199,10 +212,18 @@ public class MainActivity extends Activity {
 		handler.post(updateThread);
 	}
 	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    // Inflate the menu items for use in the action bar
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.play__actions, menu);
+	    if(repeat==1) {
+	    	inflater.inflate(R.menu.play__actions, menu);
+	    } else if(repeat==2) {
+	    	inflater.inflate(R.menu.play__actions_b, menu);
+	    } else if(repeat==0) {
+	    	inflater.inflate(R.menu.play__actions_c, menu);
+	    }
+	    
 	    return super.onCreateOptionsMenu(menu);
 	}
 
@@ -215,6 +236,7 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle presses on the action bar items
 	    switch (item.getItemId()) {
@@ -229,6 +251,20 @@ public class MainActivity extends Activity {
                 }
                 SoundEnabled = !SoundEnabled;
 	            return true;
+	            
+	        case R.id.action_repeat:
+	        	if(repeat==1) {
+	        		repeat = 2;
+	        		item.setIcon(R.drawable.repeat_once);
+	        	} else if (repeat==2) {
+	        		repeat = 0;
+	        		item.setIcon(R.drawable.repeat_no);
+	        	} else if (repeat==0) {
+	        		repeat = 1;
+	        		item.setIcon(R.drawable.repeat_all);
+	        	}
+	        	
+	        	return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }

@@ -42,6 +42,9 @@ public final class R {
         public static final int prev=0x7f020012;
         public static final int prev_1=0x7f020013;
         public static final int prev_2=0x7f020014;
+        public static final int repeat_all=0x7f020015;
+        public static final int repeat_no=0x7f020016;
+        public static final int repeat_once=0x7f020017;
     }
     public static final class id {
         public static final int action_mute=0x7f090007;
@@ -61,7 +64,9 @@ public final class R {
         public static final int list=0x7f080000;
         public static final int main=0x7f080001;
         public static final int play__actions=0x7f080002;
-        public static final int song_list=0x7f080003;
+        public static final int play__actions_b=0x7f080003;
+        public static final int play__actions_c=0x7f080004;
+        public static final int song_list=0x7f080005;
     }
     public static final class raw {
         public static final int dingdong=0x7f040000;
