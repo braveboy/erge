@@ -17,4 +17,12 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name = "PlaySeekBar" >
+         <item name = "android:maxHeight">12.0dip</item>
+         <item name = "android:indeterminateOnly">false</item>
+         <item name = "android:progressDrawable">@drawable/music_progressive_seekbar</item>
+         <item name = "android:minHeight">12.0dip</item>
+         <item name = "android:thumb">@drawable/music_progressive_point</item>
+         <item name = "android:thumbOffset" >29.0dip </item >
+     </style>
 </resources>
