@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
 	};
 	
 	int [] sounid = {
-			R.raw.s01,
+			R.raw.s0001,
 			R.raw.s04,
 			R.raw.s05,
 	};
